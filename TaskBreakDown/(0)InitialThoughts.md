@@ -1,19 +1,27 @@
 # TaskManager
 
-what does the model look like...
+## Model Structure:
 
-Name of Task
-Task
-Completed, Boolean
-Due date
-Urgency - High, Medium, Low
+- **Name of Task**
+- **Task**
+- **Completed, Boolean**
+- **Due Date**
+- **Urgency**
+  - High
+  - Medium
+  - Low
 
-things to figure out how to do...
-minimal unit tests for a key component (e.g., task creation).
-what is dockerize?
+## Things to Figure Out:
 
-to do...
-Follow your google doc notes for Node.js and express backend set up
--sub out mongoDB for postgreSQL DB
+- Minimal unit tests for a key component (e.g., task creation).
+- What is Dockerize?
 
-test on postman to ensure back end is working
+## To-Do List:
+
+- **Follow Your Google Doc Notes**
+
+  - Set up Node.js and Express backend.
+  - Substitute out MongoDB for PostgreSQL DB.
+
+- **Test on Postman**
+  - Ensure backend functionality by testing on Postman.
