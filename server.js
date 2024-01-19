@@ -1,42 +1,20 @@
 require("dotenv").config();
 const express = require("express");
-// const db = require("./db");
-const { Pool } = require("pg");
+const db = require("./db");
 
 const app = express();
 app.use(express.json());
 
-const pool = new Pool({
-  user: "",
-  host: "localhost",
-  database: "todo_list",
-  password: "",
-  port: 5432,
-});
-
 //get all tasks
 app.get("/api/tasks", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM tasks");
+    const result = await db.query("SELECT * FROM tasks");
     res.json(result);
+    console.log("Ye route be handled successfully", result);
   } catch (error) {
     console.error("Error executing query", error);
     res.status(500).send("Internal Server Error");
   }
-  //   const results = await db.query("SELECT * from tasks");
-  //   console.log(results);
-  //   console.log("route handler ran");
-  //   res.status(200).json({
-  //     status: "success",
-  //     data: {
-  //       task_id: 903,
-  //       name: "Sample Task",
-  //       description: "AHHHHHHHH",
-  //       completed: false,
-  //       due_date: "2024-02-01",
-  //       urgency: "Low",
-  //     },
-  //   });
 });
 
 //get ind task
