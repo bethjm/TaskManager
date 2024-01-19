@@ -53,30 +53,34 @@ app.post("/api/tasks", async (req, res) => {
 });
 
 // update
-//WORKS SUCCESSFULLY, TESTED ON POSTMAN
-
+//successfully pulling data from here to postman, but not seeing anything different in my postgres table
+//I am getting updates to my get all request in postman though
+//pause for now and come back to later
+//I dont think my thing is properly hooked up to postgreqsl?
 app.put("/api/tasks/:id", async (req, res) => {
-  console.log("params id", req.params.id);
   try {
     const results = await db.query(
-      "UPDATE tasks SET name = $1, description = $2, due_date = $3, urgency = $4 WHERE task_id = $5 RETURNING *",
+      "UPDATE tasks SET name = $1, description = $2, due_date = $3, urgency = $4 WHERE id = $5 RETURNING *",
       [
         req.body.name,
         req.body.description,
         req.body.due_date,
         req.body.urgency,
-        req.params.task_id,
+        req.params.id,
       ]
     );
-    console.log(results);
-    console.log(req.body);
-    res.status(201).json(results);
-  } catch (error) {
-    console.log("it DID NOT work");
 
-    console.error("Error executing query", error);
-    res.status(500).send("Internal Server Error");
+    res.status(200).json({
+      status: "success",
+      data: {
+        task: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
   }
+  console.log(req.params.id);
+  console.log(req.body);
 });
 
 // delete app.delete("/api/tasks/:id", (req, res) => {
