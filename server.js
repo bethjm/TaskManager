@@ -1,11 +1,15 @@
 require("dotenv").config();
 const express = require("express");
+const db = require("./db");
+
 const app = express();
 
 app.use(express.json());
 
 //get all tasks
-app.get("/api/tasks", (req, res) => {
+app.get("/api/tasks", async (req, res) => {
+  const results = await db.query("SELECT * FROM todo_list");
+  console.log(results);
   console.log("route handler ran");
   res.status(200).json({
     status: "success",
