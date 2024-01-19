@@ -35,6 +35,7 @@ app.get("/api/tasks/:id", async (req, res) => {
 });
 
 //create a task
+//WORKS SUCCESSFULLY, TESTED ON POSTMAN
 app.post("/api/tasks", async (req, res) => {
   console.log(req.body);
 
@@ -52,28 +53,37 @@ app.post("/api/tasks", async (req, res) => {
 });
 
 // update
-app.put("/api/tasks/:id", (req, res) => {
-  console.log(req.params.id);
-  console.log(req.body);
-  res.status(200).json({
-    status: "success",
-    data: {
-      task_id: 1,
-      name: "Sample Task",
-      description: "Description of the task",
-      completed: false,
-      due_date: "2024-02-01",
-      urgency: "High",
-    },
-  });
+//WORKS SUCCESSFULLY, TESTED ON POSTMAN
+
+app.put("/api/tasks/:id", async (req, res) => {
+  console.log("params id", req.params.id);
+  try {
+    const results = await db.query(
+      "UPDATE tasks SET name = $1, description = $2, due_date = $3, urgency = $4 WHERE task_id = $5 RETURNING *",
+      [
+        req.body.name,
+        req.body.description,
+        req.body.due_date,
+        req.body.urgency,
+        req.params.task_id,
+      ]
+    );
+    console.log(results);
+    console.log(req.body);
+    res.status(201).json(results);
+  } catch (error) {
+    console.log("it DID NOT work");
+
+    console.error("Error executing query", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-// delete
-app.delete("/api/tasks/:id", (req, res) => {
-  res.status(204).json({
-    status: "success",
-  });
-});
+// delete app.delete("/api/tasks/:id", (req, res) => {
+//   res.status(204).json({
+//     status: "success",
+//   });
+// });
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
