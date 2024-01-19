@@ -3,18 +3,22 @@ const express = require("express");
 const db = require("./db");
 
 const app = express();
-
 app.use(express.json());
 
 //get all tasks
 app.get("/api/tasks", async (req, res) => {
-  const results = await db.query("SELECT * FROM todo_list");
+  const results = await db.query("SELECT * from tasks");
   console.log(results);
-  console.log("route handler ran");
+  //   console.log("route handler ran");
   res.status(200).json({
     status: "success",
     data: {
-      list_item: ["clean cat box", "eat", "play with cats"],
+      task_id: 1,
+      name: "Sample Task",
+      description: "Description of the task",
+      completed: false,
+      due_date: "2024-02-01",
+      urgency: "High",
     },
   });
 });
@@ -26,7 +30,12 @@ app.get("/api/tasks/:id", (req, res) => {
   res.status(200).json({
     status: "success",
     data: {
-      list_item: ["drink water", "eat food", "play with dogs"],
+      task_id: 1,
+      name: "Sample Task",
+      description: "Description of the task",
+      completed: false,
+      due_date: "2024-02-01",
+      urgency: "High",
     },
   });
 });
@@ -37,7 +46,12 @@ app.post("/api/tasks", (req, res) => {
   res.status(201).json({
     status: "success",
     data: {
-      list_item: ["drink water", "eat food", "play with dogs"],
+      task_id: 1,
+      name: "Sample Task",
+      description: "Description of the task",
+      completed: false,
+      due_date: "2024-02-01",
+      urgency: "High",
     },
   });
 });
@@ -49,7 +63,12 @@ app.put("/api/tasks/:id", (req, res) => {
   res.status(200).json({
     status: "success",
     data: {
-      list_item: ["drink water", "eat food", "play with dogs"],
+      task_id: 1,
+      name: "Sample Task",
+      description: "Description of the task",
+      completed: false,
+      due_date: "2024-02-01",
+      urgency: "High",
     },
   });
 });
