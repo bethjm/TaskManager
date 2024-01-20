@@ -15,7 +15,7 @@ app.get("/api/tasks", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM tasks");
     res.status(200).json(result);
-    console.log("Ye route be handled successfully", result);
+    // console.log("Ye route be handled successfully", result);
   } catch (error) {
     console.error("Error executing query", error);
     res.status(500).send("Internal Server Error");
@@ -26,7 +26,7 @@ app.get("/api/tasks", async (req, res) => {
 //NOT WORKING 2:06
 //WORKING 2:09 - needed to take out task_id
 app.get("/api/tasks/:id", async (req, res) => {
-  console.log("el id", req.params.id);
+  // console.log("el id", req.params.id);
 
   try {
     const results = await db.query("SELECT* FROM tasks WHERE id = $1", [
@@ -43,14 +43,14 @@ app.get("/api/tasks/:id", async (req, res) => {
 //WORKS SUCCESSFULLY, TESTED ON POSTMAN
 //DOUBLE CHECKED IS WORKING 2:06
 app.post("/api/tasks", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     const results = await db.query(
       "INSERT INTO tasks (name, description, due_date, urgency) VALUES ($1, $2,$3, $4) RETURNING *",
       [req.body.name, req.body.description, req.body.due_date, req.body.urgency]
     );
-    console.log(results);
+    // console.log(results);
     res.status(201).json(req.body);
   } catch (error) {
     console.error("Error executing query", error);
@@ -85,8 +85,8 @@ app.put("/api/tasks/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(req.params.id);
-  console.log(req.body);
+  // console.log(req.params.id);
+  // console.log(req.body);
 });
 
 //delete
